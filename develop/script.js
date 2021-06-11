@@ -46,10 +46,23 @@ function generatePassword() {
     allChar += num;
   };
 
-  var speChar = confirm("Would you like to include special characters?");
+  var speChar = confirm("Your password is looking pretty good, but would you like to include special characters?");
   if (speChar){
     allChar += speChar;
   };
+//If user fails to select any options, then a prompt warning pops up//
+
+if (
+  lowerCase === false &&
+  upperCase === false &&
+  num === false &&
+  speChar === false
+) {
+  alert("You must select at least one character type.");
+  
+  //User gets prompted to enter their character length//
+  generatePassword();
+}
 
 }
 }
