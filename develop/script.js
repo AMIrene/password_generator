@@ -9,7 +9,7 @@ var lowerCase = "abcdefghijklmnopqrstuvwxyz";
 var upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var num = "1234567890";
 var speChar = "!#$%&'()*+-./:;<=>?@[_]`{|}~";
-var passChar = "";
+var allpassChar = "";
 var passWrd = "";
 
 
@@ -28,22 +28,22 @@ function generatePassword() {
 
   var lowerCase = confirm("Would you like to include lowercase characters?");
   if (lowerCase) {
-      passChar += lowerCase;
+      allpassChar += lowerCase;
     };
     
-  var upperCase = confirm("Would you like to include upperCase characters?");
+  var upperCase = confirm("Would you like to include uppercase characters?");
   if (upperCase){
-    passChar += upperCase;
+    allpassChar += upperCase;
   };
 
   var num = confirm("Would you like to include numbers?");
   if (num){
-    passChar += num;
+    allpassChar += num;
   };
 
   var speChar = confirm("Your password is looking pretty good, but would you like to include special characters?");
   if (speChar){
-    passChar += speChar;
+    allpassChar += speChar;
   };
 
 /*If user fails to select any options, then a prompt warning user to select one 
@@ -59,12 +59,14 @@ if (
   //User gets prompted to enter their character length//
   generatePassword();
 }
+//combine all character variables//
+
 
 //Random selection//
 
 for (var i = 0; i < pwdLength; i++) {
-  // passWrd = passChar[Math.floor(Math.random() * 10) + 1];
-  passWrd += passChar.charAt(Math.floor(Math.random() * 10) + 1);
+  
+  passWrd += allpassChar.charAt(Math.floor(Math.random() * 10) + 1);
 }
 return passWrd
 }
