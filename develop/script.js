@@ -2,6 +2,7 @@
 // 
 
 var generateBtn = document.querySelector("#generate");
+// console.log(generateBtn)
 
 
 //Password string reference
@@ -10,7 +11,7 @@ var upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var num = "1234567890";
 var speChar = "!#$%&'()*+-./:;<=>?@[_]`{|}~";
 var allpassChar = "";
-var passWrd = "";
+
 
 
 
@@ -18,11 +19,12 @@ var passWrd = "";
 user is prompted for password length*/
 function generatePassword() {
   var pwdLength = prompt("Enter password length. Min 8 characters and max 128 characters.");
+
   if (pwdLength < 8 || pwdLength > 128 || isNaN(parseInt(pwdLength))) {
-    alert("Password must be minimum 8 characters and max 128 characters.");
+    alert("Password must be minimum 8 characters and maximum 128 characters.");
 
   /*If user enters password length that fits within length criteria, then user is prompted
-  to select yes or no on selection criteria*/
+  to select yes or no on character options*/
 
   } else {
 
@@ -41,7 +43,7 @@ function generatePassword() {
     allpassChar += num;
   };
 
-  var speChar = confirm("Your password is looking pretty good, but would you like to include special characters?");
+  var speChar = confirm("Would you like to include special characters?");
   if (speChar){
     allpassChar += speChar;
   };
@@ -56,19 +58,20 @@ if (
 ) {
   alert("You must select at least one character type.");
 
-  //User gets prompted to enter their character length//
+  //When user fails to select at least one character type, user gets prompted to enter their character length//
   generatePassword();
 }
 //combine all character variables//
 
-
 //Random selection//
-
-for (var i = 0; i < pwdLength; i++) {
+var passWrd = "";
+for (var i=0; i<pwdLength; i++){
   
-  passWrd += allpassChar.charAt(Math.floor(Math.random() * 10) + 1);
+    // passWrd += allpassChar.charAt(Math.floor(Math.random() * 10) + 1);
+  passWrd += allpassChar.charAt(Math.floor(Math.random() * allpassChar.length))
+  
 }
-return passWrd
+return passWrd;
 }
 }
 
@@ -82,4 +85,5 @@ function writePassword() {
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
+
 
