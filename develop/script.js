@@ -28,33 +28,33 @@ function generatePassword() {
 
   } else {
 
-  var lowerCase = confirm("Would you like to include lowercase characters?");
-  if (lowerCase) {
+  var lowCase = confirm("Would you like to include lowercase characters?");
+  if (lowCase) {
       allpassChar += lowerCase;
     };
     
-  var upperCase = confirm("Would you like to include uppercase characters?");
-  if (upperCase){
+  var uppCase = confirm("Would you like to include uppercase characters?");
+  if (uppCase){
     allpassChar += upperCase;
   };
 
-  var num = confirm("Would you like to include numbers?");
-  if (num){
+  var numbr = confirm("Would you like to include numbers?");
+  if (numbr){
     allpassChar += num;
   };
 
-  var speChar = confirm("Would you like to include special characters?");
-  if (speChar){
+  var speChars = confirm("Would you like to include special characters?");
+  if (speChars){
     allpassChar += speChar;
   };
 
 /*If user fails to select any options, then a prompt warning user to select one 
 character type pops up*/
 if (
-  lowerCase === false &&
-  upperCase === false &&
-  num === false &&
-  speChar === false
+  lowCase === false &&
+  uppCase === false &&
+  numbr === false &&
+  speChars === false
 ) {
   alert("You must select at least one character type.");
 
