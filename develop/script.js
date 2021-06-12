@@ -5,79 +5,76 @@ var generateBtn = document.querySelector("#generate");
 // console.log(generateBtn)
 
 
-//Password string reference
-var lowerCase = "abcdefghijklmnopqrstuvwxyz";
-var upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-var num = "1234567890";
-var speChar = "!#$%&'()*+-./:;<=>?@[_]`{|}~";
-var allpassChar = "";
+//Password string reference - global const should be uppercase
+const ALPHA_LOWER = "abcdefghijklmnopqrstuvwxyz";
+const ALPHA_UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const NUMBERS = "1234567890";
+const SPECIAL_CHARS = "!#$%&'()*+-./:;<=>?@[_]`{|}~";
 
 
+/*Logic for generate password function*/
+function generatePassword(passwordLength, lowercase, uppercase, numbers, specialChars) {
 
+  let selectedPasswordChars = "";
+  if (lowercase) 
+    selectedPasswordChars += ALPHA_LOWER;
+  if (uppercase) 
+    selectedPasswordChars += ALPHA_UPPER;
+  if (numbers) 
+    selectedPasswordChars += NUMBERS;
+  if (specialChars) 
+    selectedPasswordChars += SPECIAL_CHARS;
 
-/*When user clicks on generate password button, 
-user is prompted for password length*/
-function generatePassword() {
-  var pwdLength = prompt("Enter password length. Min 8 characters and max 128 characters.");
+  let generatedPassword = "";
 
-  if (pwdLength < 8 || pwdLength > 128 || isNaN(parseInt(pwdLength))) {
-    alert("Password must be minimum 8 characters and maximum 128 characters.");
-
-  /*If user enters password length that fits within length criteria, then user is prompted
-  to select yes or no on character options*/
-
-  } else {
-
-  var lowCase = confirm("Would you like to include lowercase characters?");
-  if (lowCase) {
-      allpassChar += lowerCase;
-    };
-    
-  var uppCase = confirm("Would you like to include uppercase characters?");
-  if (uppCase){
-    allpassChar += upperCase;
-  };
-
-  var numbr = confirm("Would you like to include numbers?");
-  if (numbr){
-    allpassChar += num;
-  };
-
-  var speChars = confirm("Would you like to include special characters?");
-  if (speChars){
-    allpassChar += speChar;
-  };
-
-/*If user fails to select any options, then a prompt warning user to select one 
-character type pops up*/
-if (
-  lowCase === false &&
-  uppCase === false &&
-  numbr === false &&
-  speChars === false
-) {
-  alert("You must select at least one character type.");
-
-  //When user fails to select at least one character type, user gets prompted to enter their character length//
-  generatePassword();
-}
-//combine all character variables//
-
-//Random selection//
-var passWrd = "";
-for (var i=0; i<pwdLength; i++){
-  
-    // passWrd += allpassChar.charAt(Math.floor(Math.random() * 10) + 1);
-  passWrd += allpassChar.charAt(Math.floor(Math.random() * allpassChar.length))
-  
-}
-return passWrd;
-}
+  for (var i=0; i<passwordLength; i++) {
+      const randomFloat = Math.random() * selectedPasswordChars.length;
+      const rounded = Math.floor(randomFloat);
+      generatedPassword += selectedPasswordChars.charAt(rounded);
+  }
+  return generatedPassword;
 }
 
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
+
+  // Inputs for the password generator function
+  // number
+  const passwordLength = prompt("Enter password length. Min 8 characters and max 128 characters.");
+  // if not a number or not in the right range,
+  // then alert and return
+  if (passwordLength < 8 || passwordLength > 128 || isNaN(parseInt(passwordLength, 10))) {
+    alert("Password must be a number between 8 and 128 characters.");
+  
+ return;
+  }
+ 
+  // true/false
+  const lowercase = confirm("Would you like to include lowercase characters?");
+  // true/false
+  const uppercase = confirm("Would you like to include uppercase characters?");
+  // true/false
+  const numbers = confirm("Would you like to include numbers?");
+  // true/false
+  const symbols = confirm("Would you like to include special characters?");
+
+  // if no character class selected
+  // then alert and return
+
+  if (
+    lowercase === false &&
+    uppercase === false &&
+    numbers === false &&
+    symbols === false
+  ) {
+
+    alert("Password must include at least one character type.");
+  
+ return;
+  };
+ 
+
+  var password = generatePassword(passwordLength, lowercase, uppercase, numbers, symbols);
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
@@ -85,5 +82,3 @@ function writePassword() {
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
-
-
